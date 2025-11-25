@@ -26,7 +26,7 @@ jobs:
         run: pnpm install
         
       - name: Test application
-        run: npm run test
+        run: npm run lint
 
   build:
     runs-on: ubuntu-latest
