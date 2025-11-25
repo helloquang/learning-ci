@@ -2,7 +2,11 @@ name: Hello workflow
 on:
   push:
     branches: ["main"]
-
+    
+env:
+  NODE_VERSION: '20.x'
+  PNPM_VERSION: '10.x'
+  
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -10,13 +14,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
       - name: Setup NodeJS
         uses: actions/setup-node@v5
         with:
-          node-version: "20.x"
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
 
       - name: Install packages
-        run: npm install
+        run: pnpm install
         
       - name: Test application
         run: npm run test
@@ -28,13 +38,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
       - name: Setup NodeJS
         uses: actions/setup-node@v5
         with:
-          node-version: "20.x"
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
 
       - name: Install packages
-        run: npm install
+        run: pnpm install
 
       - name: Build application
         run: npm run build
