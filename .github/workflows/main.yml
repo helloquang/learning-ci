@@ -8,7 +8,7 @@ jobs:
   build:
      uses: helloquang/learning-ci/.github/workflows/build-workflow.yml@main
      with:
-       node-version: '18.x'
+       node-version: '20.x'
      permissions:
        pages: write
        id-token: write
