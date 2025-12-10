@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-       - uses: helloquang/learning-ci/edit/main/.github/workflows/build-workflow.yml@main
+       - uses: helloquang/learning-ci/.github/workflows/build-workflow.yml@main
          with:
            node-version: '18.x'
 
