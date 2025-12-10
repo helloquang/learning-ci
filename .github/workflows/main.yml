@@ -3,74 +3,13 @@ on:
   push:
     branches: ["main"]
     
-env:
-  NODE_VERSION: '20.x'
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup NodeJS
-        uses: actions/setup-node@v5
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "pnpm"
-
-      - name: Install packages
-        run: pnpm install
-        
-      - name: Test application
-        run: npm run lint
-
   build:
     runs-on: ubuntu-latest
-    needs: test
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
+       - uses: helloquang/learning-ci/edit/main/.github/workflows/build-workflow.yml@main
+         with:
+           node-version: '18.x'
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup NodeJS
-        uses: actions/setup-node@v5
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "pnpm"
-
-      - name: Install packages
-        run: pnpm install
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          static_site_generator: next
-
-      - name: Build application
-        run: npm run build
-        
-      - name: Upload artifacts
-        uses: actions/upload-pages-artifact@v4
-        with: 
-          path: "./out"
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      id-token: write
-      pages: write
-    environment:
-      name: dev
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to Github pages
-        id: deployment
-        uses: actions/deploy-pages@v4
     
